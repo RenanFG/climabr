@@ -1,6 +1,6 @@
 # ClimaBR
 
-Aplicação web para consulta da previsão do tempo de cidades brasileiras.
+Aplicação web para consulta da previsão do tempo de cidades brasileiras com a funcionalidade extra de encontrar a cidade mais próxima. 
 
 # Como utilizar?
 

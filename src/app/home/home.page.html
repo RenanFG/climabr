@@ -8,13 +8,15 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-md="6" offset-md="3">
-        <ion-searchbar 
-          placeholder="Qual a sua cidade?"
-          #searchInput
-          (ionChange)="onSearch(searchInput.value)"
-          debounce="500"
-        ></ion-searchbar>
+        <ion-item>
+          <ion-button size="small" slot="start" (click)="onGeoLocate()" class="geoIcon">
+            <ion-icon slot="icon-only" name="locate"></ion-icon>
+          </ion-button>
 
+          <ion-searchbar placeholder="Qual a sua cidade?" #searchInput (ionChange)="onSearch(searchInput.value)"
+            debounce="500"></ion-searchbar>
+
+        </ion-item>
         <app-error-message *ngIf="errorMessage" [message]="errorMessage"></app-error-message>
 
         <ion-list lines="none" *ngIf="!errorMessage">
@@ -28,6 +30,7 @@
           </ion-item>
 
         </ion-list>
+
       </ion-col>
     </ion-row>
   </ion-grid>

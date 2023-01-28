@@ -32,4 +32,43 @@ export class SearchCityService {
 
         return city;
     }
+
+    async searchClosestByCoordenates(coordenates : any) : Promise<City>{
+        const cities = await this.repo.getAll();
+
+            let closestCity;
+
+            // declara a variavel como maximo inteiro
+            let closestDistance = Number.MAX_SAFE_INTEGER;
+        
+            // procura a distancia pra cada cidade e compara com a distancia mais proxima, no final do loop a mais proxima será retornada
+            for (let city of cities) {
+                let distance = this.getDistance(coordenates.latitude, coordenates.longitude, city.coords.latitude, city.coords.longitude);
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestCity = city;
+                }
+            }
+        
+            return closestCity;
+    }
+
+    // Haversine formula https://pt.wikipedia.org/wiki/F%C3%B3rmula_de_haversine#:~:text=O%20nome%20haversine%20foi%20criado,sen2(%CE%B82).
+    getDistance(lat1: number, lon1: number, lat2: number, lon2: number) {
+        let R = 6371; // Radius of the earth in km
+        let dLat = this.deg2rad(lat2 - lat1);  // deg2rad below
+        let dLon = this.deg2rad(lon2 - lon1); 
+        let a = 
+          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+          Math.sin(dLon / 2) * Math.sin(dLon / 2)
+          ; 
+        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
+        let d = R * c; // Distance in km
+        return d;
+      }
+    
+      deg2rad(deg: number) {
+        return deg * (Math.PI / 180);
+      }
 }

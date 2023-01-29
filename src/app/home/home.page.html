@@ -9,12 +9,14 @@
     <ion-row>
       <ion-col size="12" size-md="6" offset-md="3">
         <ion-item>
-          <ion-button size="small" slot="start" (click)="onGeoLocate()" class="geoIcon">
-            <ion-icon slot="icon-only" name="locate"></ion-icon>
-          </ion-button>
-
+        
           <ion-searchbar placeholder="Qual a sua cidade?" #searchInput (ionChange)="onSearch(searchInput.value)"
             debounce="500"></ion-searchbar>
+
+            <ion-button size="medium" (click)="onGeoLocate()" class="geoIcon" >
+              <ion-icon slot="icon-only" name="locate"></ion-icon>
+              <ion-label title="Encontrar cidade pela localização do dispositivo">Meu Local</ion-label>
+          </ion-button>
 
         </ion-item>
         <app-error-message *ngIf="errorMessage" [message]="errorMessage"></app-error-message>
